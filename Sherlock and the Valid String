@@ -1,0 +1,50 @@
+Problem Statement:
+Sherlock considers a string to be valid if all characters of the string appear the same number of times.
+It is also valid if he can remove just 1 character at 1 index in the string, and the remaining characters will occur the same number of times.
+Given a string s, determine if it is valid. If so, return YES, otherwise return NO.
+
+import numpy as np
+import pandas as pd
+
+
+def isValid(s):
+    s = str(s)
+    string_list = []
+    for chars in s:
+        string_list.append(chars)
+    print(string_list)
+    
+    unique_char = [values for values in (list(set(string_list)))]
+    print(unique_char)
+    
+    unique_char_count = []
+    
+    for values in unique_char:
+        val = string_list.count(values)
+        unique_char_count.append(val)
+    print(unique_char_count)
+    
+    data = {'Unique Character':[values for values in unique_char],
+            'Occurances':[values for values in unique_char_count]}
+    df = pd.DataFrame(data)
+    df = df.sort_values(by=['Occurances'], ignore_index=True, ascending=False)
+    print(df)
+    print(df['Occurances'][0])
+    print(df['Occurances'][1])
+    df['Occurances'].min()
+    if (len(df.Occurances.unique())>1):
+        if df['Occurances'][0] == df['Occurances'][1]:
+            if df['Occurances'][0]-df['Occurances'].min()>=1:
+                return "NO"
+            else:
+                return "YES"
+        elif (df['Occurances'][0]-df['Occurances'][1])<=df['Occurances'].min():
+            return "YES"
+        else:
+            return "NO"
+    else:
+        return "YES"
+
+s = str(input())
+result = isValid(s)
+print(result)
