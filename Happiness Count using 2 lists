@@ -1,0 +1,73 @@
+Problem :
+There is an array of n integers. There are also 2 disjoint sets, A and B, each containing m integers.
+You like all the integers in set A and dislike all the integers in set B. Your initial happiness is 0.
+For each i integer in the array, if i belongs to A, you add 1 to your happiness. If i belongs to B, you add -1 to your happiness.
+Otherwise, your happiness does not change. Output your final happiness at the end.
+
+
+Solution : 
+
+import numpy as np
+import random
+
+happy_set = []
+sad_set = []
+result_array = []
+result = 0
+
+set_length = int(input())
+array_length = int(input())
+
+# Happy List
+for values in range(set_length):
+    n = random.randint(1,1000)
+    if len(happy_set)!= 0:
+        if n in happy_set :
+            pass
+        else:
+            happy_set.append(n)
+    else:
+        happy_set.append(n)
+
+# Sad List
+for values in range(set_length):
+    n = random.randint(1,1000)
+    if len(sad_set)!= 0:
+        if n in sad_set :
+            pass
+        else:
+            sad_set.append(n)
+    else:
+        sad_set.append(n)
+    if len(list(set(happy_set) - set(sad_set))) < len(happy_set):
+    #if happy_set.isdisjoint(sad_set) is False :
+        list.remove(n)
+    else:
+        pass
+
+# Merge two list
+resultant_array = happy_set + sad_set
+
+# Result List
+for values in range(array_length):
+    n = random.choice(resultant_array)
+    result_array.append(n)
+
+print('\n')
+print("Happy List : ", happy_set)
+print('\n')
+print("Sad List : ", sad_set)
+print('\n')
+print("Merged List : ", resultant_array)
+print('\n')
+print("Result Array : ", result_array)
+
+for values in result_array:
+    if values in happy_set:
+        result += 1
+    elif values in sad_set:
+        result = result-1
+    else:
+        pass
+
+print("Happiness Value : ", result)
